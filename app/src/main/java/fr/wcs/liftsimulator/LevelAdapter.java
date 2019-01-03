@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,23 +35,31 @@ public class LevelAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Button levelButton;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        TextView levelButton;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            levelButton = new Button(context);
-            levelButton.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+            levelButton = new TextView(context);
+            ViewGroup.LayoutParams layoutButton =new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            levelButton.setLayoutParams(layoutButton);
             levelButton.setBackgroundColor(context.getResources().getColor(R.color.colorButton));
 
+
         } else {
-            levelButton = (Button) convertView;
+            levelButton = (TextView) convertView;
         }
 
         levelButton.setText(levelArray[position].toString());
+        levelButton.setClickable(true);
+        levelButton.setEnabled(true);
+        levelButton.setFocusable(true);
+        levelButton.setGravity(Gravity.CENTER);
+        levelButton.setPadding(0,16,0,16);
+
         return levelButton;
     }
 

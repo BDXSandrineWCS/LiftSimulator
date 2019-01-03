@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.logging.Level;
@@ -13,6 +14,8 @@ import java.util.logging.Level;
 public class MainActivity extends AppCompatActivity {
 
     private Integer[]  levelArray;
+    private boolean isLiftMoving = false;
+    private int currentFloor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +29,58 @@ public class MainActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(gridview.getContext(), "" + position,
+                Toast.makeText(MainActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
             }
         });
 
+
+    }
+
+
+    private void goToFloor(int floor) {
+        if (!isLiftMoving && floor != currentFloor) {
+            moveNextFloor(floor);
+            isLiftMoving = false;
+        }
+    }
+
+    private void moveNextFloor(int floor) {
+        if (floor != currentFloor) {
+            isLiftMoving = true;
+            waitForIt();
+            currentFloor = (floor > currentFloor) ? currentFloor + 1 : currentFloor - 1;
+            TextView floorCount = (TextView) findViewById(R.id.floor_count);
+            floorCount.setText(String.valueOf(currentFloor));
+            moveNextFloor(floor);
+        }
+    }
+
+    private void waitForIt() {
+        // TODO : à compléter
+    }
+
+    public Integer[] getLevelArray() {
+        return levelArray;
+    }
+
+    public void setLevelArray(Integer[] levelArray) {
+        this.levelArray = levelArray;
+    }
+
+    public boolean isLiftMoving() {
+        return isLiftMoving;
+    }
+
+    public void setLiftMoving(boolean liftMoving) {
+        isLiftMoving = liftMoving;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public void setCurrentFloor(int currentFloor) {
+        this.currentFloor = currentFloor;
     }
 }
