@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LiftSimulator</string>
+    <string name="stage">Stage:</string>
+    <string name="hint_level">0</string>
+</resources>
